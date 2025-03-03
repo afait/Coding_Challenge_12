@@ -29,3 +29,37 @@ metricCardArray.forEach(card => { // Use the .forEac array
     card.style.backgroundColor = "blue"; // Modifys the style, changing the background color
 });
 
+
+// Task 3 - Implemented Dynamic Inventory List
+const inventoryList = document.getElementById("inventoryList");
+
+function addInventoryItem(product) {
+    let newLi = document.createElement("li");
+    newLi.setAttribute("class", "product-item"); // add a class, product item
+    newLi.addEventListener("click", () => {removeInventoryItem(newLi)});
+
+    inventoryList.appendChild(newLi)
+}; // Function creates a new <li> element that represents a product
+
+
+addInventoryItem("CLICK HERE");
+addInventoryItem("Add a product below");
+
+let productForm = document.getElementById('productForm');
+let error = document.getElementById('error'); 
+
+productForm.addEventListener('submit', (event) => { // Adding an event listener for when someone clicks the submit button
+    let productName = document.getElementById('productName').value; // Stores the inputted content
+    if (productName.trim() === '') {
+        error.textContent = 'Must Add a Product Name';
+        event.preventDefault();
+    } else {
+        error.textContent = '';
+        addInventoryItem(productName);
+        event.preventDefault(); // Prevent from submitting
+    }
+});
+
+function removeInventoryItem(item) {
+    inventoryList.removeChild(item);
+};
